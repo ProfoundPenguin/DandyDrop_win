@@ -1,0 +1,153 @@
+:root {
+  --black: #1E1E1E;
+  --grey: #282828;
+  --white: #E8E2E2;
+
+  --root_padding: 20px;
+
+  --gap: 20px
+}
+
+/* Basic HTML and BODY setup */
+html {
+  font-size: 10px;
+  width: 100%;
+  height: 100%;
+}
+body {
+  background-color: var(--black);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+}
+
+/* Universal font family */
+* {
+  font-family: 'inter';
+}
+
+/* The whole container that contains everything */
+#container {
+  width: calc(100% - (var(--root_padding) * 2));
+  height: calc(100% - (var(--root_padding) * 2));
+  padding: var(--root_padding);
+  min-width: calc(100% - (var(--root_padding) * 2));
+  display: flex;
+  align-items: flex-start;
+
+  gap: var(--gap);
+}
+
+/* The left side banner */
+#banner {
+  width: 60px;
+  border-radius: 12px;
+  height: calc(100% - 20px);
+  padding: 10px 0px;
+  background-color: var(--grey);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+#banner #main_logo {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
+#banner #theme {
+  width: 45px;
+  height: 45px;
+  background-color: var(--black);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#banner #theme img {
+  width: 50%;
+  /* Center isn't always center */
+  margin-bottom: -2px;
+}
+
+/* The container which contains everything on the right side (everything but the banner) */
+#content {
+  width: calc(100% - 60px);
+  position: relative;
+}
+
+#title {
+  height: 65px;
+  display: flex;
+  align-items: center;
+}
+#title h1 {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+/* The area where user Drops their file(s) */
+#drop_files {
+  width: calc(100%);
+  margin-top: 2px;
+  height: calc(100vh - (var(--root_padding) * 2) - 4px - 65px);
+  border: 1px dashed var(--white);
+  border-radius: 10px;
+  position: relative;
+}
+#drop_files #background {
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  margin: 15px;
+  border-radius: 5px;
+  background-color: var(--grey);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: 0.1s;
+  opacity: 0;
+}
+#drop_files * {
+  pointer-events: none;
+}
+#drop_files h2 {
+  font-size: 1.8rem;
+  color: var(--white);
+  text-align: center;
+  font-weight: 500;
+  padding: 0px;
+  margin: 0px;
+}
+#drop_files p {
+  font-size: 1.4rem;
+  font-weight: 100;
+  color: #A9A5A5;
+  text-decoration: underline;
+  text-align: center;
+}
+#drop_files.ondrag .center {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+#drop_files.ondrag #background {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+.center {
+  position: absolute;
+  left: 50%;
+  transition: 0.1s;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

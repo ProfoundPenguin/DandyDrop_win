@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css" />
+
+    <script defer src="scripts/script.js"></script>
+
+  </head>
+  <body>
+    <div id="container">
+      <div id="banner">
+        <img src="img/logo.jpg" id="main_logo">
+        <div id="theme">
+          <img src="img/theme.png">
+        </div>
+      </div>
+      <div id="content">
+        <div id="title">
+          <h1>DandyDrop</h1>
+        </div>
+        <div id="drop_files"
+        ondrop="dropHandler(event);"
+        ondragenter="dragEnter(event);"
+        ondragleave="dragLeave(event);">
+          <div id="background"></div>
+          <div class="center">
+            <h2>Drop your file(s) here</h2>
+            <p>or browse</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
