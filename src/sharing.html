@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="index.css" />
+
+    <script>
+        var selected = []
+    </script>
+
+  </head>
+  <body>
+    <header id="titlebar">
+        <div id="drag-region">
+          <div id="window-title">
+            <img src="img/logo.jpg">
+            <span>DandyDrop</span>
+            <div id="bandwidth">
+                <p>Transmitting speed:</p>
+                <p id="speed">3.4 mBps</p>
+            </div>
+          </div>
+          <div id="window-controls">
+      
+            <div class="button" id="min-button">
+              <img class="icon" srcset="icons/min-w-10.png 1x, icons/min-w-12.png 1.25x, icons/min-w-15.png 1.5x, icons/min-w-15.png 1.75x, icons/min-w-20.png 2x, icons/min-w-20.png 2.25x, icons/min-w-24.png 2.5x, icons/min-w-30.png 3x, icons/min-w-30.png 3.5x" draggable="false" />
+            </div>
+      
+            <div class="button" id="max-button">
+              <img class="icon" srcset="icons/max-w-10.png 1x, icons/max-w-12.png 1.25x, icons/max-w-15.png 1.5x, icons/max-w-15.png 1.75x, icons/max-w-20.png 2x, icons/max-w-20.png 2.25x, icons/max-w-24.png 2.5x, icons/max-w-30.png 3x, icons/max-w-30.png 3.5x" draggable="false" />
+            </div>
+      
+            <div class="button" id="restore-button">
+              <img class="icon" srcset="icons/restore-w-10.png 1x, icons/restore-w-12.png 1.25x, icons/restore-w-15.png 1.5x, icons/restore-w-15.png 1.75x, icons/restore-w-20.png 2x, icons/restore-w-20.png 2.25x, icons/restore-w-24.png 2.5x, icons/restore-w-30.png 3x, icons/restore-w-30.png 3.5x" draggable="false" />
+            </div>
+      
+            <div class="button" id="close-button">
+              <img class="icon" srcset="icons/close-w-10.png 1x, icons/close-w-12.png 1.25x, icons/close-w-15.png 1.5x, icons/close-w-15.png 1.75x, icons/close-w-20.png 2x, icons/close-w-20.png 2.25x, icons/close-w-24.png 2.5x, icons/close-w-30.png 3x, icons/close-w-30.png 3.5x" draggable="false" />
+            </div>
+      
+          </div>
+        </div>
+      </header>
+    <div id="container">
+      <div id="banner">
+        <img src="img/logo.jpg" id="main_logo">
+        <div id="theme">
+          <img src="img/theme.png">
+        </div>
+      </div>
+      <div id="content">
+        <div id="leftSide">
+            <div id="title">
+            <h1>DandyDrop</h1>
+            </div>
+            <div id="qr_code" class="box">
+                <div id="context">
+                    <div id="second_step" class="underlined">Scan to recieve <div id="gap"></div></div>
+                    <p>Make sure you are connected to a network, and so is the devices that you would like to share with</p>
+                    <div id="second_step">
+                        <p>or visit:</p>
+                        <p id="ip" class="underlined">http://192.168.0.169:8080</p>
+                    </div>
+                    <button onclick="second_step()">Done</button>
+                </div>
+                <img id="qr" src="">
+                
+            </div>
+            <div id="drop_files" draggable="true"
+            ondrop="dropHandler(event)"
+            ondragenter="dragEnter(event)"
+            ondragleave="dragLeave(event)"
+            ondragover="dragOver(event)">
+            <div id="background"></div>
+            <div class="center">
+                <h2>Drop your file(s) here</h2>
+                <p>or browse</p>
+            </div>
+            </div>
+        </div>
+        <div id="rightSide">
+            <div id="files" class="box">
+                <div id="title">
+                    <p>Sharing: <span></span> File(s)</p>
+                    <button onclick="delete_file(selected, true)">Delete Selected
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAE4ElEQVR4nO3cZ6gkRRQF4KOi7IJiRoyomFCMIIoJMYsZc0LXnEHMirrmVcGcUMGMCuaECmZUMGPGLMb16XszU+d0v111SxplwD99d1nWuXesD+r/PVXT1WGqCiiKoiiKoiiKonBE0mRJeTbblEHn+D93fi6DMPjOz2UQBt/5eWgGYQ52Th6GVgZAZQAG/itUuQIG3xEqU9DgO0MDaOUeoDIAA/8VqlwBg+8IDesUNKsvTiSvQFAkrzQ6fLKHIg81BuABBEXyQSPbIYOuESmlrY0i30BQJN9sy5ZS2mrQNaLb7a5qXKY/IyhJU9uyjY+PrzLoGpFznkhyRssVMCPnPAHB5JwnzESuifBA0i9tv5S6rldCMOPj4ysbV/ZUeCHpbWOu3ALBpJS2NAbgLXhB8mHjRnwwgiE5ycj0ELwgebVR7DkIhuS5Rqar4AXJk43L9RYEI+lWY1o9CV5UVbWXMQDPIBhJz7ZlqqpqT3ghaUNjAD5BMJI+NTJtAC8kLWXMl0IwJGVkWhJe5JznJjmtreBut7soguj1eosbnT+tyQxPSH5pFL0ugiC5npHlC3gj6QVjztwFQUja1cjyPLyRdIdR9PEIQtIJRpbb4Y2kC4yiL0MQki43spwPbyQdYcyb9yEIkvcbWQ6HNyS3M4p+FUGQfN3Isi28SSmtYRT9HYIg+UNbll6vtzq8yTnPbwzAHznneeFcznk+kn+2ZRkZGVkAHkkabSu8ruvl4Vxd1ysaN+Df4JWk99qKr6pqMziXUtrcGIB34RXJx9qKTykdAOdIHmhMpY/CK5LXGcWfCedInmVkuBZekTzNKP5GOEfyJiPDqfCqqqp9jfnzCTgn6SnjPrYPvKqqamNjAN6Hc5I+NAZgI3hVVdWyxgB04ZykrpFhGXiVc56H5PS2AKOjowvCqU6ns7Ax/09vMsIzkt8Yj6JrwimSaxsD8DW8I/mKEWIHOCVpJ6P2l+GdpHuMOfQoOCXpWKP2u+GdpEuMEBfBKUlTjNovhneSjjFC3IW4V+/R8I7kjsY8+hKcYuD7V19Kaa2oTxIkv436BNc3Nja2UMRn6fz3O8zvUd9hwr9NVlW1XPS3+D5JH0T7nlJV1SbRv2P1SXrSGIC94UxKab/oX3L7mu/+xn3gFDhD8nSj5hsQRfPPlxHmGjhD8nqj5jMQRfPfrxHmETgj6XHjEXR/RNGsfjDm03cQb0XHpoiirusVjAH4Fc5oCNY09TUr4JqVcG2BmpV0cGJYVvX9C8nv20L1er3V4MQwrWvtI/maEWobOEFy+2FZ2d3X7AcwQh0GJyQdadR6L6JpdsQYN+Lz4ISkC41aL0U0zZ4wI9RtcELSnUatxyGaZlekEeo5OEHyRaPWnRFNsy/YmFc/hxMkvzJqXQfRNDvjjVDjOee5Iuzy73Q6iyAikqktWEppiQDnXCREJeljY25dP8BJLx8hquacICPc7gHOOnoaUTUnZRnhTgxw2tfNiKo5K84Il703kmcjKkl7DLoDNfttN0TVPOVYa23kuDVrmHq93mKIzPooJ9/N/2poi6SlJY056Mw8i63TbLnCMGiOeSdZO+jUPDOteTNuTn/BMGleeKxz5eSgkfzMwwvinDyJZNI/e3F/sk4l+Y86vPnv+sdm5RvJg8L991sURVEURVEUBaL5CzPRpnTYgXZ3AAAAAElFTkSuQmCC">
+                    </button>
+                    <div id="border_bottom"></div>
+                </div>
+                <div id="the_files">
+                    <div id="file_title">
+                        <p class="name">File Name</p>
+                        <p class="size">File Size</p>
+                    </div>
+                    <div id="files_list">
+                    </div>
+                    <div id="no_files">
+                        <svg viewBox="0 0 333 348" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M128.622 347.926C199.658 347.926 257.245 337.753 257.245 325.204C257.245 312.654 199.658 302.481 128.622 302.481C57.5861 302.481 0 312.654 0 325.204C0 337.753 57.5861 347.926 128.622 347.926Z" fill="#5D3891"/>
+                            <path d="M206.796 251.408C276.221 251.408 332.5 195.128 332.5 125.704C332.5 56.2795 276.221 0 206.796 0C137.372 0 81.0925 56.2795 81.0925 125.704C81.0925 195.128 137.372 251.408 206.796 251.408Z" fill="#5D3891"/>
+                            <path opacity="0.05" d="M206.796 229.476C264.108 229.476 310.569 183.016 310.569 125.704C310.569 68.3918 264.108 21.9313 206.796 21.9313C149.484 21.9313 103.024 68.3918 103.024 125.704C103.024 183.016 149.484 229.476 206.796 229.476Z" fill="black"/>
+                            <path opacity="0.05" d="M206.796 210.754C253.768 210.754 291.847 172.676 291.847 125.704C291.847 78.7316 253.768 40.6531 206.796 40.6531C159.824 40.6531 121.746 78.7316 121.746 125.704C121.746 172.676 159.824 210.754 206.796 210.754Z" fill="black"/>
+                            <path opacity="0.05" d="M206.796 186.683C240.474 186.683 267.776 159.382 267.776 125.704C267.776 92.0256 240.474 64.7241 206.796 64.7241C173.118 64.7241 145.817 92.0256 145.817 125.704C145.817 159.382 173.118 186.683 206.796 186.683Z" fill="black"/>
+                            <path d="M82.2057 136.953C82.2057 136.953 72.3229 164.772 76.7153 174.655C81.1077 184.537 88.0622 194.054 88.0622 194.054C88.0622 194.054 85.5 138.784 82.2057 136.953Z" fill="#D0CDE1"/>
+                            <path opacity="0.1" d="M82.2057 136.953C82.2057 136.953 72.3229 164.772 76.7153 174.655C81.1077 184.537 88.0622 194.054 88.0622 194.054C88.0622 194.054 85.5 138.784 82.2057 136.953Z" fill="black"/>
+                            <path d="M89.1603 201.375C89.1603 201.375 88.4283 208.329 88.0622 208.695C87.6962 209.061 88.4283 209.794 88.0622 210.892C87.6962 211.99 87.3302 213.454 88.0622 213.82C88.7943 214.186 84.0359 246.397 84.0359 246.397C84.0359 246.397 72.3229 261.77 77.0813 285.928L78.5454 310.452C78.5454 310.452 89.8924 311.184 89.8924 307.158C89.8924 307.158 89.1603 302.399 89.1603 300.203C89.1603 298.007 90.9905 298.007 89.8924 296.909C88.7943 295.811 88.7943 295.079 88.7943 295.079C88.7943 295.079 90.6245 293.615 90.2584 293.249C89.8924 292.883 93.5527 266.894 93.5527 266.894C93.5527 266.894 97.5791 262.868 97.5791 260.672V258.476C97.5791 258.476 99.4092 253.717 99.4092 253.351C99.4092 252.985 109.292 230.657 109.292 230.657L113.318 246.763L117.711 269.823C117.711 269.823 119.907 290.686 124.299 298.739C124.299 298.739 131.986 325.093 131.986 324.361C131.986 323.629 144.797 321.799 144.431 318.505C144.065 315.21 136.744 269.091 136.744 269.091L138.575 200.643L89.1603 201.375Z" fill="#2F2E41"/>
+                            <path d="M79.2776 308.622C79.2776 308.622 69.3948 328.022 75.9833 328.754C82.5719 329.486 85.1341 329.486 88.0623 326.557C89.6632 324.957 92.9051 322.809 95.5152 321.19C97.0618 320.247 98.3111 318.887 99.12 317.266C99.9289 315.645 100.265 313.829 100.088 312.026C99.8954 310.235 99.2263 308.759 97.5792 308.622C93.1868 308.256 88.0623 304.23 88.0623 304.23L79.2776 308.622Z" fill="#2F2E41"/>
+                            <path d="M133.816 322.897C133.816 322.897 123.933 342.297 130.522 343.029C137.11 343.761 139.673 343.761 142.601 340.833C144.202 339.232 147.444 337.084 150.054 335.466C151.6 334.522 152.85 333.162 153.659 331.541C154.467 329.92 154.803 328.104 154.627 326.301C154.434 324.51 153.765 323.034 152.118 322.897C147.725 322.531 142.601 318.505 142.601 318.505L133.816 322.897Z" fill="#2F2E41"/>
+                            <path d="M123.371 105.206C131.869 105.206 138.758 98.3176 138.758 89.8198C138.758 81.322 131.869 74.4332 123.371 74.4332C114.873 74.4332 107.984 81.322 107.984 89.8198C107.984 98.3176 114.873 105.206 123.371 105.206Z" fill="#FFB8B8"/>
+                            <path d="M113.48 94.8754C113.48 94.8754 102.489 115.098 101.61 115.098C100.731 115.098 121.393 121.692 121.393 121.692C121.393 121.692 127.108 102.349 127.987 100.59L113.48 94.8754Z" fill="#FFB8B8"/>
+                            <path d="M130.339 117.005C130.339 117.005 108.377 104.926 106.181 105.292C103.985 105.658 80.5586 126.155 80.9247 134.574C81.2907 142.993 84.2189 156.902 84.2189 156.902C84.2189 156.902 85.317 195.701 87.5132 196.067C89.7094 196.433 87.1472 203.022 87.8792 203.022C88.6113 203.022 139.124 203.022 139.49 201.924C139.856 200.826 130.339 117.005 130.339 117.005Z" fill="#D0CDE1"/>
+                            <path d="M142.601 203.937C142.601 203.937 149.555 225.167 143.699 224.435C137.842 223.703 135.28 206.133 135.28 206.133L142.601 203.937Z" fill="#FFB8B8"/>
+                            <path d="M123.933 115.724C123.933 115.724 110.39 118.652 112.586 136.953C114.783 155.255 118.809 173.556 118.809 173.556L132.352 203.205L133.816 208.695L143.699 206.133L136.378 163.674C136.378 163.674 133.816 118.286 130.522 116.822C128.444 115.936 126.186 115.56 123.933 115.724Z" fill="#D0CDE1"/>
+                            <path opacity="0.1" d="M115.698 173.008L132.535 203.022L118.349 171.395L115.698 173.008Z" fill="black"/>
+                            <path d="M138.689 85.2892L138.74 84.1134L141.079 84.6956C141.054 84.3181 140.948 83.9506 140.767 83.6184C140.586 83.2862 140.335 82.9972 140.031 82.7714L142.523 82.6321C140.432 79.6612 137.761 77.1448 134.671 75.235C131.58 73.3252 128.135 72.0616 124.543 71.5204C119.154 70.7393 113.153 71.8696 109.458 75.8691C107.665 77.8091 106.539 80.2762 105.738 82.793C104.262 87.4285 103.961 92.9543 107.038 96.7223C110.166 100.552 115.628 101.302 120.549 101.776C122.281 101.943 124.096 102.098 125.7 101.426C125.879 99.5855 125.643 97.7283 125.011 95.9906C124.747 95.4527 124.621 94.8578 124.644 94.2593C124.863 92.7952 126.816 92.4264 128.283 92.6242C129.75 92.822 131.514 93.1246 132.478 92.0011C133.142 91.2273 133.103 90.1004 133.191 89.0844C133.43 86.3187 138.664 85.869 138.689 85.2892Z" fill="#2F2E41"/>
+                        </svg>
+                        <p>Currently, no files are being shared.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    <script defer src="./renderer.js"></script>
+
+  <script>
+    
+    function select(id) {
+        if (selected.includes(id)) {
+            selected = selected.filter(item => item !== id);
+            document.querySelector(".f" + id.toString()).classList.remove("selected")
+        } else {
+            selected.push(id);
+            document.querySelector(".f" + id.toString()).classList.add("selected")
+        }
+        if (selected.length > 0) {
+            document.body.classList.add("delete_all")
+        } else {
+            document.body.classList.remove("delete_all")
+        }
+    }
+
+    function second_step() {
+        api.qrIp().then(data => {
+            if (data[1] != false) {
+                // document.querySelector("#qr svg path").setAttribute("d", data[0])
+                document.querySelector("#qr").src = data[0]
+                console.log(data[0]);
+                document.querySelector("p#ip").innerHTML = data[1]
+                document.querySelector("#qr_code button").innerHTML = "Refresh"
+                document.querySelector('#qr_code').classList.add('second_step')
+            }
+        })
+    }
+
+    function getReadableFilesize(filesize) {
+            if (filesize <= 0) {
+                return "0 B";
+            }
+
+            const units = ["B", "KB", "MB", "GB", "TB"];
+            const digitGroups = Math.floor(Math.log10(filesize) / Math.log10(1024));
+
+            return (filesize / Math.pow(1024, digitGroups)).toFixed(1) + " " + units[digitGroups];
+        }
+    function formatFileDetails(file) {
+        // Assuming 'file' is the array you receive
+
+        // Convert size to KB
+        const sizeInKB = (file.size / 1024).toFixed(1) + " KB";
+
+        // Create the formatted HTML string
+        const formattedHTML = `
+            <div id="file" class="f${file.id}" onclick="select(${file.id})">
+                <div id="check_box">
+                    <div id="checked"></div>
+                </div>
+                <div id="file_name">${file.name}<div id="shadow"></div></div>
+                <div id="size">${getReadableFilesize(file.size)}</div>
+                <div id="delete">
+                    <button onclick="delete_file([${file.id}])">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAE4ElEQVR4nO3cZ6gkRRQF4KOi7IJiRoyomFCMIIoJMYsZc0LXnEHMirrmVcGcUMGMCuaECmZUMGPGLMb16XszU+d0v111SxplwD99d1nWuXesD+r/PVXT1WGqCiiKoiiKoiiKonBE0mRJeTbblEHn+D93fi6DMPjOz2UQBt/5eWgGYQ52Th6GVgZAZQAG/itUuQIG3xEqU9DgO0MDaOUeoDIAA/8VqlwBg+8IDesUNKsvTiSvQFAkrzQ6fLKHIg81BuABBEXyQSPbIYOuESmlrY0i30BQJN9sy5ZS2mrQNaLb7a5qXKY/IyhJU9uyjY+PrzLoGpFznkhyRssVMCPnPAHB5JwnzESuifBA0i9tv5S6rldCMOPj4ysbV/ZUeCHpbWOu3ALBpJS2NAbgLXhB8mHjRnwwgiE5ycj0ELwgebVR7DkIhuS5Rqar4AXJk43L9RYEI+lWY1o9CV5UVbWXMQDPIBhJz7ZlqqpqT3ghaUNjAD5BMJI+NTJtAC8kLWXMl0IwJGVkWhJe5JznJjmtreBut7soguj1eosbnT+tyQxPSH5pFL0ugiC5npHlC3gj6QVjztwFQUja1cjyPLyRdIdR9PEIQtIJRpbb4Y2kC4yiL0MQki43spwPbyQdYcyb9yEIkvcbWQ6HNyS3M4p+FUGQfN3Isi28SSmtYRT9HYIg+UNbll6vtzq8yTnPbwzAHznneeFcznk+kn+2ZRkZGVkAHkkabSu8ruvl4Vxd1ysaN+Df4JWk99qKr6pqMziXUtrcGIB34RXJx9qKTykdAOdIHmhMpY/CK5LXGcWfCedInmVkuBZekTzNKP5GOEfyJiPDqfCqqqp9jfnzCTgn6SnjPrYPvKqqamNjAN6Hc5I+NAZgI3hVVdWyxgB04ZykrpFhGXiVc56H5PS2AKOjowvCqU6ns7Ax/09vMsIzkt8Yj6JrwimSaxsD8DW8I/mKEWIHOCVpJ6P2l+GdpHuMOfQoOCXpWKP2u+GdpEuMEBfBKUlTjNovhneSjjFC3IW4V+/R8I7kjsY8+hKcYuD7V19Kaa2oTxIkv436BNc3Nja2UMRn6fz3O8zvUd9hwr9NVlW1XPS3+D5JH0T7nlJV1SbRv2P1SXrSGIC94UxKab/oX3L7mu/+xn3gFDhD8nSj5hsQRfPPlxHmGjhD8nqj5jMQRfPfrxHmETgj6XHjEXR/RNGsfjDm03cQb0XHpoiirusVjAH4Fc5oCNY09TUr4JqVcG2BmpV0cGJYVvX9C8nv20L1er3V4MQwrWvtI/maEWobOEFy+2FZ2d3X7AcwQh0GJyQdadR6L6JpdsQYN+Lz4ISkC41aL0U0zZ4wI9RtcELSnUatxyGaZlekEeo5OEHyRaPWnRFNsy/YmFc/hxMkvzJqXQfRNDvjjVDjOee5Iuzy73Q6iyAikqktWEppiQDnXCREJeljY25dP8BJLx8hquacICPc7gHOOnoaUTUnZRnhTgxw2tfNiKo5K84Il703kmcjKkl7DLoDNfttN0TVPOVYa23kuDVrmHq93mKIzPooJ9/N/2poi6SlJY056Mw8i63TbLnCMGiOeSdZO+jUPDOteTNuTn/BMGleeKxz5eSgkfzMwwvinDyJZNI/e3F/sk4l+Y86vPnv+sdm5RvJg8L991sURVEURVEUBaL5CzPRpnTYgXZ3AAAAAElFTkSuQmCC">    
+                    </button>
+                </div>
+            </div>`;
+
+        // Print or use the formatted HTML as needed
+        return formattedHTML
+    }
+    api.getSharingFiles().then(data => {
+        all_files = ""
+        data.forEach(file => {
+            all_files += formatFileDetails(file);
+        });
+        document.querySelector("#files_list").innerHTML = all_files
+        if(data.length == 0) {
+            document.querySelector("#files").classList.add("no_files")
+        } else {
+            document.querySelector("#files").classList.remove("no_files")
+        }
+    })
+
+    document.querySelector("#the_files").addEventListener("scroll", ()=> {
+        if (document.querySelector("#the_files").scrollTop > 0) {
+            document.body.classList.add("files_scrolled")
+        } else {
+            document.body.classList.remove("files_scrolled")
+        }
+    })
+
+    function delete_file(list, selected = false) {
+        console.log(list);
+        api.delete_files(list).then(data => {
+        all_files = ""
+        data.forEach(file => {
+            all_files += formatFileDetails(file);
+        });
+        document.querySelector("#files_list").innerHTML = all_files
+        if(data.length == 0) {
+            document.querySelector("#files").classList.add("no_files")
+        } else {
+            document.querySelector("#files").classList.remove("no_files")
+        }
+        if (selected.length > 0) {
+            document.body.classList.add("delete_all")
+        } else {
+            document.body.classList.remove("delete_all")
+        }
+        if (selected) {
+            selected = []
+        }
+    })
+    }
+  </script>
+</body>
+</html>
