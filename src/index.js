@@ -25,6 +25,7 @@ const createWindow = () => {
     width: 1000,
     height: 700,
     frame: false,
+    icon: "icon.ico",
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
