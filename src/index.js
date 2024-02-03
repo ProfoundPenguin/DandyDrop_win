@@ -7,10 +7,10 @@ const fs = require('fs');
 const ip = require('ip');
 const { networkInterfaces } = require('os');
 
-const files = [];
+var files = [];
 var id = 0;
 
-
+const server = express()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -56,6 +56,7 @@ ipcMain.handle("min", (_) => {
 
 ipcMain.handle("share-file", async (_, fileStatus) => {
   const [path, name, size] = fileStatus;
+  
   try {
     const stats = await new Promise((resolve, reject) => {
       fs.lstat(path, (err, stats) => {
@@ -74,17 +75,28 @@ ipcMain.handle("share-file", async (_, fileStatus) => {
     console.error('Error checking file status:', error);
     return false;
   }
-
+  var duplicate = false
+  files.forEach(file=> {
+    if (file['path'] == path) {
+      duplicate = true
+    }
+  })
   let thefileStatus = {
     "id": ++id,
     "path": path,
     "name": name,
     "size": size
   }
-  files.push(thefileStatus)
+  if(!duplicate) {
+    files.push(thefileStatus)
+  }
   return true
   
 });
+
+ipcMain.handle("stop", (_) => {
+  files = []
+})
 
 ipcMain.handle("get-sharing-files", (_) => {
   return files;
@@ -117,7 +129,7 @@ ipcMain.handle("qr-ip",(_) => {
 })
 
 ipcMain.handle("bug-report", (_) => {
-  shell.openExternal("http://google.com");
+  shell.openExternal("https://github.com/ProfoundPenguin/DandyDrop_win/issues/new");
 })
 
 function getLocalNetworkIpAddress() {
@@ -145,7 +157,7 @@ function getLocalNetworkIpAddress() {
 app.on('ready', () => {
   createWindow();
 
-  const server = express()
+  
 
   server.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'template/index.html'));

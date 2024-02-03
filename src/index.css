@@ -14,6 +14,7 @@
   position: fixed;
   top: 0px;
   height: 22px;
+  z-index: 100;
   width: calc(100% - 8px);
   background: var(--black);
 }
@@ -34,12 +35,28 @@
 #titlebar #bandwidth {
   margin-right: 15px;
   display: flex;
+  align-items: center;
   padding: 1px 10px;
   align-content: center;
   gap: 5px;
   user-select: none;
   margin-left: auto;
   /* border: 1px solid #A9A5A5; */
+}
+#titlebar #bandwidth #bug {
+  margin-right: 20px;
+  -webkit-app-region: none;
+  cursor: pointer;
+  pointer-events: all;
+  text-decoration: underline;
+  padding: 10px 0px;
+  color: #A9A5A5;
+}
+#titlebar #bandwidth #bug.no_gap {
+  margin-right: 0px;
+}
+#titlebar #bandwidth #bug:hover {
+  color: var(--white);
 }
 #titlebar #bandwidth p {
   white-space: nowrap;
@@ -237,6 +254,9 @@ button {
   /* Center isn't always center */
   margin-bottom: -2px;
 }
+#banner #theme:hover {
+  background-color: #232323;
+}
 
 /* The container which contains everything on the right side (everything but the banner) */
 #content {
@@ -269,12 +289,31 @@ button {
   height: 65px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 #title h1 {
   font-size: 1.8rem;
   font-weight: 500;
   color: var(--white);
   user-select: none;
+}
+#title #disconnect {
+  font-size: 1.6rem;
+  color: #A9A5A5;
+  border-radius: 50px;
+  cursor: pointer;
+  padding: 10px 0px;
+  margin: -10px;
+  transform: translateX(-15px);
+  transition: 0.1s;
+  user-select: none;
+  text-decoration: underline;
+}
+#title #disconnect:hover {
+  color: var(--white);
+}
+#title #disconnect:active {
+  transform: translateX(-15px) scale(0.95);
 }
 
 /* The area where user Drops their file(s) */
@@ -431,7 +470,7 @@ button {
 #files {
   height: calc(100% - (var(--root_padding) * 2));
   max-height: calc(100% - (var(--root_padding) * 2));
-  min-height: 900px;
+  min-height: 500px;
   overflow: hidden;
 }
 #files #title {
@@ -643,6 +682,13 @@ body.delete_all #files #title button {
   }
   #content #leftSide:not(.full_size) #drop_files {
     min-height: 200px;
+  }
+
+  #leftSide {
+    min-height: auto;
+  }
+  #files {
+    flex: auto;
   }
 }
 @media (min-width: 970px) {

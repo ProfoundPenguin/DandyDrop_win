@@ -47,7 +47,7 @@ function handleWindowControls() {
 
 
 
-function dropHandler(event) {
+function dropHandler(event, adding = false) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -55,7 +55,23 @@ function dropHandler(event) {
     for (const file of files) {
         api.shareFile([file.path, file.name, file.size]).then(data => {
             if (data) {
-                window.location.href = "sharing.html";
+                if(!adding) {
+                    window.location.href = "sharing.html";
+                }
+                else {
+                    api.getSharingFiles().then(data => {
+                        all_files = ""
+                        data.forEach(file => {
+                            all_files += formatFileDetails(file);
+                        });
+                        document.querySelector("#files_list").innerHTML = all_files
+                        if(data.length == 0) {
+                            document.querySelector("#files").classList.add("no_files")
+                        } else {
+                            document.querySelector("#files").classList.remove("no_files")
+                        }
+                    })
+                }
             }
         })
        

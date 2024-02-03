@@ -15,6 +15,8 @@ const api = {
     delete_files: (list) => ipcRenderer.invoke("delete-files", list),
 
     bug_report: ()=> ipcRenderer.invoke("bug-report"),
+
+    stop: ()=> ipcRenderer.invoke("stop"),
 }
 
 contextBridge.exposeInMainWorld("api", api);

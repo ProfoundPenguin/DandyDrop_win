@@ -17,9 +17,8 @@
             <img src="img/logo.jpg">
             <span>DandyDrop</span>
             <div id="bandwidth">
-                <p>Transmitting speed:</p>
-                <p id="speed">3.4 mBps</p>
-            </div>
+                <p id="bug" class="no_gap" onclick="api.bug_report()">Report an issue</p>
+              </div>
           </div>
           <div id="window-controls">
       
@@ -45,14 +44,15 @@
     <div id="container">
       <div id="banner">
         <img src="img/logo.jpg" id="main_logo">
-        <div id="theme">
+        <div id="theme" onclick="api.close()">
           <img src="img/theme.png">
         </div>
       </div>
       <div id="content">
         <div id="leftSide">
             <div id="title">
-            <h1>DandyDrop</h1>
+                <h1>DandyDrop</h1>
+                <div id="disconnect" onclick="stop()">Disconnect</div>
             </div>
             <div id="qr_code" class="box">
                 <div id="context">
@@ -68,7 +68,7 @@
                 
             </div>
             <div id="drop_files" draggable="true"
-            ondrop="dropHandler(event)"
+            ondrop="dropHandler(event, true)"
             ondragenter="dragEnter(event)"
             ondragleave="dragLeave(event)"
             ondragover="dragOver(event)">
@@ -156,15 +156,15 @@
     }
 
     function getReadableFilesize(filesize) {
-            if (filesize <= 0) {
-                return "0 B";
-            }
-
-            const units = ["B", "KB", "MB", "GB", "TB"];
-            const digitGroups = Math.floor(Math.log10(filesize) / Math.log10(1024));
-
-            return (filesize / Math.pow(1024, digitGroups)).toFixed(1) + " " + units[digitGroups];
+        if (filesize <= 0) {
+            return "0 B";
         }
+
+        const units = ["B", "KB", "MB", "GB", "TB"];
+        const digitGroups = Math.floor(Math.log10(filesize) / Math.log10(1024));
+
+        return (filesize / Math.pow(1024, digitGroups)).toFixed(1) + " " + units[digitGroups];
+    }
     function formatFileDetails(file) {
         // Assuming 'file' is the array you receive
 
@@ -209,6 +209,11 @@
             document.body.classList.remove("files_scrolled")
         }
     })
+
+    function stop() {
+        api.stop();
+        location.href = "index.html"
+    }
 
     function delete_file(list, selected = false) {
         console.log(list);
